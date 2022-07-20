@@ -27,17 +27,20 @@ def read_root():
 
 @app.get("/consultar")
 def show_all(mesInicio: str = '', mesFim: str = ''):
-    ret = {}
     url = create_url(mesInicio, mesFim)
     data = pd.read_html(url)
     table = data[0]
     arr_table = [value.array for _, value in table.iterrows()]
-    for item in arr_table:
-        ret[item[0]] = {
+    
+    ret = [
+        {
+            'dev': item[0],
             'totais': {'qtd': item[1], 'porc': item[2]},
             'boxti': {'qtd': item[3], 'porc': item[4]},
             'clientes': {'qtd': item[5], 'porc': item[6]},
             'faturadas': {'qtd': item[7], 'porc': item[8]}
         }
+        for item in arr_table
+    ]
 
     return ret
