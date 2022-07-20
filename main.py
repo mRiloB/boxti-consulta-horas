@@ -22,7 +22,7 @@ def create_url(mini: str, mfim: str) -> str:
 
 @app.get("/")
 def read_root():
-    return {"version": "v1.0.0"}
+    return {"version": "v1.0.5"}
 
 
 @app.get("/consultar")
